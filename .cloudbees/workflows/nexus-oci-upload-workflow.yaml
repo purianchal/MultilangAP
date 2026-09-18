@@ -35,7 +35,7 @@ jobs:
         with:
           name: aspm-test
           version: "1.0"
-        url: nexusoss.saas-preprod.beescloud.com/aspm-test:1.0
+          url: nexusoss.saas-preprod.beescloud.com/aspm-test:1.0
 
     
       # - name: Print output parameter artifact ID from Nexus upload action
