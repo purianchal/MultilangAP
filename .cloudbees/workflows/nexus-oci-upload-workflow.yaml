@@ -1,0 +1,38 @@
+name: nexus-oci-upload-workflow
+kind: workflow
+apiVersion: automation.cloudbees.io/v1alpha1
+
+on:
+  push:
+    branches:
+      - "**"
+  workflow_dispatch:
+    
+jobs:
+  upload-image:
+    steps:
+      - name: checkout-source-code
+        uses: cloudbees-io/checkout@v1
+
+      - name: Configure Nexus OCI credentials
+        uses: cloudbees-io/configure-oci-credentials@v1
+        with:
+          registry: nexusoss.saas-preprod.beescloud.com
+          username: admin
+          password: ${{ secrets.NEXUS_PASSWORD }}
+
+      - id: build-container
+        name: Build and push container image to Nexus
+        uses: cloudbees-io/kaniko@v1
+        with:
+          destination: nexusoss.saas-preprod.beescloud.com/aspm-test:1.0
+          build-args: USER=cbp-dev,TOKEN=${{ secrets.GH_SECURITY_PAT }}
+          context: ${{ cloudbees.workspace }}
+          dockerfile: Dockerfile
+
+    
+      # - name: Print output parameter artifact ID from Nexus upload action
+      #   uses: docker://alpine:latest
+      #   shell: sh
+      #   run: |
+      #     echo "artifact ID for my-artifact is: ${{ steps.build-container.outputs.artifact-id }}"
