@@ -6,7 +6,7 @@ WORKDIR /src
 ARG USER
 ARG TOKEN
 RUN apk --no-cache add make git gcc libtool musl-dev ca-certificates dumb-init \
-  && go install golang.org/x/vuln/cmd/govulncheck@latest \
+  && go install golang.org/x/vuln/cmd/govulncheck@v1.1.3 \
   && go env -w GOPRIVATE="github.com/cloudbees-compliance/*" \
   && git config --global url."https://${USER}:${TOKEN}@github.com".insteadOf  "https://github.com"
 COPY go.mod go.sum /src/
