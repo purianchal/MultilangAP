@@ -1,0 +1,17 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: cbp-70339-edge
+
+on:
+  workflow_dispatch:
+
+jobs:
+  edge-scan:
+    runs-on: [self-hosted, ap-test]
+    steps:
+      - name: Checkout
+        uses: cloudbees-io/checkout@v1
+      - name: Gosec explicit scan
+        uses: cloudbees-io/gosec-plugin@v2.2.0
+      - name: Gitleaks explicit scan
+        uses: cloudbees-io/gitleaks-plugin@v1.1.0
