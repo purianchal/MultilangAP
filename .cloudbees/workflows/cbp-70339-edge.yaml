@@ -7,7 +7,7 @@ on:
 
 jobs:
   edge-scan:
-    runs-on: [self-hosted, ap-test]
+    runs-on: [self-hosted]
     steps:
       - name: Checkout
         uses: cloudbees-io/checkout@v1
