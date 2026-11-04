@@ -1,0 +1,22 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: cbp-70339
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cloud-scan:
+    steps:
+      - name: Checkout
+        uses: cloudbees-io/checkout@v2
+      - name: Gosec explicit scan
+        uses: cloudbees-io/gosec-plugin@v2.2.0
+      - name: Gitleaks explicit scan
+        uses: cloudbees-io/gitleaks-plugin@v1.1.0
+      - name: Checkov explicit scan
+        uses: cloudbees-io/checkov-hybrid-plugin@v1.1.0
+      - name: Grype explicit scan
+        uses: cloudbees-io/grype-plugin@v1.1.0
+        with:
+          binary-tar-path: /cloudbees/workspace/output.tar
