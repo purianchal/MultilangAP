@@ -10,7 +10,7 @@ jobs:
     runs-on: [self-hosted]
     steps:
       - name: Checkout
-        uses: cloudbees-io/checkout@v1
+        uses: cloudbees-io/checkout@v2
       - name: Gosec explicit scan
         uses: cloudbees-io/gosec-plugin@v2.2.0
       - name: Gitleaks explicit scan
